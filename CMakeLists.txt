@@ -7,7 +7,7 @@ set(DISRUPTOR_VERSION_PATCH "0")
 set(DISRUPTOR_VERSION "${DISRUPTOR_VERSION_MAJOR}.${DISRUPTOR_VERSION_MINOR}.${DISRUPTOR_VERSION_PATCH}")
 
 enable_testing()
-
+SET(CMAKE_BUILD_TYPE "Debug")  
 # enable gcc specific stuff
 if(CMAKE_COMPILER_IS_GNUCXX)
     set(COMPILER_FLAGS "-std=c++14")
@@ -44,7 +44,8 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILER_FLAGS} ${WARNING_FLAGS}")
 
 add_subdirectory(Disruptor)
-
+##add_subdirectory(Disruptor.MatchEngine)
+set(DISRUPTOR_BUILD_TESTS off)
 if(DISRUPTOR_BUILD_TESTS)
     add_subdirectory(googletest-release-1.8.0)
     include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
@@ -54,6 +55,7 @@ if(DISRUPTOR_BUILD_TESTS)
     add_subdirectory(Disruptor.Tests)
 endif()
 
+add_subdirectory(engine)
 
 # uninstall target
 ##################
